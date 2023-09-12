@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link href="/css/style.css" rel="stylesheet" type="text/css">
+  <title>MVC</title>
+</head>
+
+<body>
+  <div>
+    <h2>Adicionar tarefas</h2>
+    <form method="post" action="/tarefa/add">
+      <label for="name">Nome da Tarefa:</label>
+      <input type="text" id="name" name="name" required>
+      <br>
+      <button type="submit">Adicionar Tarefa</button>
+    </form>
+  </div>
+  <% if (tarefas.length > 0) 
+  { %>
+    <div>
+      <h2>Tarefas</h2>
+      <div>
+        <table>
+          <thead>
+            <tr>
+              <th>nome</th>
+              <th>concluida</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% tarefas.forEach(function (tarefa) { %>
+            <tr>
+              <td><%= tarefa.name %></td>
+              <td><%= tarefa.concluida %></td>
+            </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  <% } %>
+</body>
+
+</html>
