@@ -1,45 +1,84 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <link href="/css/style.css" rel="stylesheet" type="text/css" />
+    <title>MVC</title>
+  </head>
 
-<head>
-  <link href="/css/style.css" rel="stylesheet" type="text/css">
-  <title>MVC</title>
-</head>
-
-<body>
-  <div>
-    <h2>Adicionar tarefas</h2>
-    <form method="post" action="/tarefa/add">
-      <label for="name">Nome da Tarefa:</label>
-      <input type="text" id="name" name="name" required>
-      <br>
-      <button type="submit">Adicionar Tarefa</button>
-    </form>
-  </div>
-  <% if (tarefas.length > 0) 
-  { %>
-    <div>
-      <h2>Tarefas</h2>
-      <div>
-        <table>
-          <thead>
-            <tr>
-              <th>nome</th>
-              <th>concluida</th>
-            </tr>
-          </thead>
-          <tbody>
-            <% tarefas.forEach(function (tarefa) { %>
-            <tr>
-              <td><%= tarefa.name %></td>
-              <td><%= tarefa.concluida %></td>
-            </tr>
-            <% }) %>
-          </tbody>
-        </table>
-      </div>
+  <body>
+    <div class="board">
+        <div class="board-top">
+            <h1>Tarefas</h1>
+            <div class="add-tarefa">
+              <h2>Adicionar tarefas</h2>
+              <form method="post" action="/tarefa/add" class="add-form">
+                <input type="text" id="name" name="name" placeholder="Nome da tarefa" required />
+                <button type="submit">Adicionar Tarefa</button>
+              </form>
+            </div>
+        </div>
+        <div class="board-bot">
+            <div class="concluidos">
+              <span class="mini-title">Tarefas concluidas</span>
+              <% if (concluidas.length > 0) { %>
+                <% concluidas.forEach(function (tarefa) { %>
+                  <div class="single-tarefa" style="justify-content: flex-start;">
+                    <form method="post" action="/tarefa/remove">
+                      <input type="hidden" name="id" value="<%= tarefa.id %>">
+                      <div class="delete-div">
+                        <span>Deletar tarefa</span>
+                        <button type="submit" class="delete-tarefa">
+                          <svg width="25" height="25" viewBox="0 0 32 32" fill="none" xmlns="https://www.w3.org/2000/svg">
+                            <path d="M25 7L7 25" stroke="#FFF" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"></path>
+                            <path d="M25 25L7 7" stroke="#FFF" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"></path>
+                          </svg>
+                        </button>
+                      </div>
+                    </form>
+                    <span class="tarefa-name"><%= tarefa.name %></span>
+                  </div>
+                <% }) %>
+              <% } %>
+            </div>
+            <div class="n-concluidos">
+              <span class="mini-title">Tarefas não concluidas</span>
+              <% if (naoConcluidas.length > 0) { %>
+                <% naoConcluidas.forEach(function (tarefa) { %>
+                  <div class="single-tarefa">
+                    <form method="post" action="/tarefa/remove">
+                      <input type="hidden" name="id" value="<%= tarefa.id %>">
+                      <div class="delete-div">
+                        <span>Deletar tarefa</span>
+                        <button type="submit" class="delete-tarefa">
+                          <svg width="25" height="25" viewBox="0 0 32 32" fill="none" xmlns="https://www.w3.org/2000/svg">
+                            <path d="M25 7L7 25" stroke="#FFF" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"></path>
+                            <path d="M25 25L7 7" stroke="#FFF" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"></path>
+                          </svg>
+                        </button>
+                      </div>
+                    </form>
+                    <span class="tarefa-name"><%= tarefa.name %></span>
+                    <form method="post" action="/tarefa/update">
+                      <input type="hidden" name="id" value="<%= tarefa.id %>">
+                      <div class="check-div">
+                        <span>Marcar como concluido</span>
+                        <button type="submit" class="delete-tarefa">
+                          <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M10.2742 18.75C9.98669 18.75 9.71169 18.6312 9.51482 18.4219L4.44919 13.0271C4.0544 12.6083 4.07628 11.9489 4.49503 11.5552C4.91482 11.1614 5.57419 11.1823 5.9669 11.601L10.2638 16.175L19.0221 6.58957C19.4117 6.16353 20.07 6.1354 20.495 6.5229C20.919 6.9104 20.9482 7.56978 20.5607 7.99374L11.0429 18.4104C10.8482 18.625 10.5711 18.7479 10.2815 18.75H10.2742Z" fill="white"/>
+                            <mask id="mask0_222_23" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="4" y="6" width="17" height="13">
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M10.2742 18.75C9.98669 18.75 9.71169 18.6312 9.51482 18.4219L4.44919 13.0271C4.0544 12.6083 4.07628 11.9489 4.49503 11.5552C4.91482 11.1614 5.57419 11.1823 5.9669 11.601L10.2638 16.175L19.0221 6.58957C19.4117 6.16353 20.07 6.1354 20.495 6.5229C20.919 6.9104 20.9482 7.56978 20.5607 7.99374L11.0429 18.4104C10.8482 18.625 10.5711 18.7479 10.2815 18.75H10.2742Z" fill="white"/>
+                            </mask>
+                            <g mask="url(#mask0_222_23)">
+                            </g>
+                          </svg>
+                        </button>
+                      </div>
+                    </form>
+                  </div>
+                <% }) %>
+              <% } %>
+            </div>
+        </div>
     </div>
-  <% } %>
-</body>
-
+  </body>
 </html>
