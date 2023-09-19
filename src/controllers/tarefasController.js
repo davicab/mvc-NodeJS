@@ -87,7 +87,6 @@ function editarTarefa(req, res) {
     let data = tarefas;
 
     const tarefa = data.tarefas.find((tarefa) => tarefa.id === parseInt(idUpdate));
-    console.log(tarefa)
 
     if (tarefa) {
       tarefa.concluida = true;
