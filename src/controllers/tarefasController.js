@@ -56,7 +56,7 @@ function addedLista(req, res, msg) {
     }
   });
   const mensagemResposta = msg  || "";
-  res.render('tarefas/add', { tarefas: tarefas, mensagemResposta: mensagemResposta, concluidas : tarefasConcluidas, naoConcluidas : tarefasNaoConcluidas  })
+  res.render('tarefas/index', { tarefas: tarefas, mensagemResposta: mensagemResposta, concluidas : tarefasConcluidas, naoConcluidas : tarefasNaoConcluidas  })
 }
 function apagarTarefa(req, res) {
   const tarefas = getTarefas();
